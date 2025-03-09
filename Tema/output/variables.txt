@@ -1,0 +1,6 @@
+myFirstVariable
+mySecondVariable
+myThirdVariable
+myString
+temp
+myFloat

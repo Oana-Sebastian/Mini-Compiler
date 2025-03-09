@@ -1,0 +1,1 @@
+Error: Variable 'myString' is declared as 'int', but it is given a 'string' value ("").
