@@ -1,6 +1,6 @@
 # Mini-Compiler
 
-A simple yet powerful compiler for a custom C-like programming language, built using ANTLR. This project allows parsing and compiling of a subset of C-style syntax, including variable declarations, expressions, loops, functions, and control structures. This project was made with [Moroianu Andrei](https://github.com/MoroianuAndrei).
+A simple yet powerful compiler for a custom C-like programming language, built using ANTLR. This project allows parsing and compiling of a subset of C-style syntax, including variable declarations, expressions, loops, functions, and control structures. This project was made with [Moroianu Andrei](https://github.com/MoroianuAndrei/Compiler.git).
 
 # 📌Features
   ✅ Custom C-like Syntax: Supports `int`, `float`, `double`, `string`, and `void` types.
