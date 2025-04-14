@@ -1,18 +1,18 @@
 grammar BasicLanguage;
 
 @parser::members {
-    // Symbol tables for tracking declarations
+
     private HashSet<string> globalVars = new HashSet<string>();
     private HashSet<string> functions = new HashSet<string>();
     private Dictionary<string, HashSet<string>> functionLocalVars = new Dictionary<string, HashSet<string>>();
     
-    // Track current scope
+
     private string currentFunction = "";
     private bool isInFunction = false;
         private Dictionary<string, int> globalVarValues = new Dictionary<string, int>();
     private Dictionary<string, int> localVarValues = new Dictionary<string, int>();
 
-    // Evaluate expressions
+
     private int EvaluateExpr(string varName, int newValue) {
         if (isInFunction) {
             if (localVarValues.ContainsKey(varName)) {
@@ -28,7 +28,7 @@ grammar BasicLanguage;
         return newValue;
     }
 
-    // Get variable value
+
     private int GetVarValue(string varName, int line) {
         if (isInFunction && localVarValues.ContainsKey(varName)) {
             return localVarValues[varName];
@@ -39,7 +39,7 @@ grammar BasicLanguage;
         return 0;
     }
 
-    // Assign variable
+
     private void AssignVar(string varName, int value, int line) {
         if (VarExists(varName)) {
             EvaluateExpr(varName, value);
@@ -47,7 +47,7 @@ grammar BasicLanguage;
             Console.WriteLine($"Error: Variable '{varName}' is not declared at line {line}");
         }
     }
-    // Helper method to check if a variable exists in current scope
+
     private bool VarExistsInCurrentScope(string varName) {
         if (isInFunction) {
             return functionLocalVars[currentFunction].Contains(varName);
@@ -55,7 +55,7 @@ grammar BasicLanguage;
         return false;
     }
     
-    // Helper method to check if a variable exists (either local or global)
+
     private bool VarExists(string varName) {
         if (isInFunction) {
             return functionLocalVars[currentFunction].Contains(varName) || globalVars.Contains(varName);
@@ -63,7 +63,7 @@ grammar BasicLanguage;
         return globalVars.Contains(varName);
     }
     
-    // Helper method to declare a variable
+    
     private void DeclareVar(string varName, int line) {
         if (isInFunction) {
             if (VarExistsInCurrentScope(varName)) {
@@ -80,7 +80,7 @@ grammar BasicLanguage;
         }
     }
     
-    // Helper method to check for duplicate functions
+   
     private void DeclareFunction(string funcName, int line) {
         if (functions.Contains(funcName)) {
             Console.WriteLine($"Error: Duplicate function declaration '{funcName}' at line {line}");
@@ -90,21 +90,21 @@ grammar BasicLanguage;
         }
     }
     
-    // Helper method to validate variable use
+   
     private void ValidateVarUse(string varName, int line) {
         if (!VarExists(varName)) {
             Console.WriteLine($"Error: Variable '{varName}' used before declaration at line {line}");
         }
     }
     
-    // Helper method to validate function call
+    
     private void ValidateFunctionCall(string funcName, int line) {
         if (!functions.Contains(funcName)) {
             Console.WriteLine($"Error: Function '{funcName}' called before declaration at line {line}");
         }
     }
     
-    // Helper method to enter a function scope
+   
     private void EnterFunction(string funcName) {
         currentFunction = funcName;
         isInFunction = true;
@@ -113,14 +113,14 @@ grammar BasicLanguage;
         }
     }
     
-    // Helper method to exit function scope
+
     private void ExitFunction() {
         currentFunction = "";
         isInFunction = false;
     }
 }
 
-// Tokens
+
 INT: 'int';
 FLOAT: 'float';
 DOUBLE: 'double';
@@ -166,7 +166,7 @@ COMMENT: '//' ~[\r\n]* -> skip;
 BLOCK_COMMENT: '/*' .*? '*/' -> skip;
 WS: [ \t\r\n]+ -> skip;
 
-// Modified Parser Rules
+
 program: (functionDecl | globalDeclaration)* EOF;
 
 functionDecl:
